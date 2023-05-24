@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const INITIAL_STATE = [
+  {
+    nick: "dapelu",
+    subMonth: 3,
+    avatar: "https://i.pravatar.cc/150?u=dapelu",
+    description: "dapelu hace de moderador a veces",
+  },
+  {
+    nick: "juan",
+    subMonth: 2,
+    avatar: "https://i.pravatar.cc/150?u=juan",
+  },
+];
+
+interface Sub {
+  nick: string;
+  avatar: string;
+  subMonth: number;
+  description?: string;
+}
 
 function App() {
-  const [sub, setSub] = useState([
-    {
-      nick: "dapelu",
-      subMonth: 3,
-      avatar: "https://i.pravatar.cc/150?u=dapelu",
-      descripcion: "dapelu hace de moderador a veces",
-    },
-    {
-      nick: "juan",
-      subMonth: 2,
-      avatar: "https://i.pravatar.cc/150?u=juan",
-    },
-  ]);
+  const [sub, setSub] = useState<Sub[]>([]);
+
+  useEffect(() => {
+    setSub(INITIAL_STATE);
+  }, []);
 
   return (
     <>
@@ -26,7 +39,7 @@ function App() {
               <h4>
                 {sub.nick} (<small>{sub.subMonth}</small>)
               </h4>
-              <p>{sub.descripcion?.substring(0, 100)}</p>
+              <p>{sub.description?.substring(0, 100)}</p>
             </li>
           );
         })}
