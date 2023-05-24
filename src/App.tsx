@@ -26,6 +26,7 @@ function App() {
               <h4>
                 {sub.nick} (<small>{sub.subMonth}</small>)
               </h4>
+              <p>{sub.descripcion?.substring(0, 100)}</p>
             </li>
           );
         })}
