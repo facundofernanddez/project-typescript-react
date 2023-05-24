@@ -1,6 +1,15 @@
-export const List = () => {
+interface Props {
+  subs: Array<{
+    nick: string;
+    avatar: string;
+    subMonth: number;
+    description?: string;
+  }>;
+}
+
+export const List = ({ subs }: Props) => {
   <ul>
-    {sub.map((sub) => {
+    {subs.map((sub) => {
       return (
         <li key={sub.nick}>
           <img src={sub.avatar} alt="sub image" />
