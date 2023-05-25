@@ -27,10 +27,10 @@ interface AppState {
 }
 
 function App() {
-  const [sub, setSub] = useState<AppState["subs"]>([]);
+  const [subs, setSubs] = useState<AppState["subs"]>([]);
 
   useEffect(() => {
-    setSub(INITIAL_STATE);
+    setSubs(INITIAL_STATE);
   }, []);
 
   return (
