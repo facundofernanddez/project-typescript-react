@@ -9,7 +9,7 @@ export const Form = () => {
         <input type="text" name="avatar" placeholder="avatar" />
         <input type="text" name="description" placeholder="description" />
 
-        <button>Save new button!</button>
+        <button>Save new sub!</button>
       </form>
     </div>
   );
