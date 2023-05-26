@@ -19,7 +19,9 @@ export const Form = ({ onNewSub }: FormProps) => {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault;
+
     onNewSub(inputValues);
+    handleClear();
   };
 
   const handleChange = (
@@ -28,6 +30,15 @@ export const Form = ({ onNewSub }: FormProps) => {
     setInputValues({
       ...inputValues,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleClear = () => {
+    setInputValues({
+      nick: "",
+      subMonth: 0,
+      avatar: "",
+      description: "",
     });
   };
 
@@ -62,7 +73,10 @@ export const Form = ({ onNewSub }: FormProps) => {
           placeholder="description"
         />
 
-        <button>Save new sub!</button>
+        <button onClick={handleClear} type="button">
+          clear the form
+        </button>
+        <button type="submit">Save new sub!</button>
       </form>
     </div>
   );
