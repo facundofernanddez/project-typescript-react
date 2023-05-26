@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import { Sub } from "../types";
 
 interface FormState {
@@ -9,16 +9,48 @@ interface FormProps {
   onNewSub: (newSub: Sub) => void;
 }
 
+const INITIAL_STATE = {
+  nick: "",
+  subMonth: 0,
+  avatar: "",
+  description: "",
+};
+
+type formReducerAction =
+  | {
+      type: "change_value";
+      payload: {
+        inputName: string;
+        inputValue: string;
+      };
+    }
+  | {
+      type: "clear";
+    };
+
+const formReducer = (
+  state: FormState["inputValues"],
+  action: formReducerAction
+) => {
+  switch (action.type) {
+    case "change_value":
+      const { inputName, inputValue } = action.payload;
+      return {
+        ...state,
+        [inputName]: inputValue,
+      };
+    case "clear":
+      return INITIAL_STATE;
+  }
+};
+
 export const Form = ({ onNewSub }: FormProps) => {
-  const [inputValues, setInputValues] = useState<FormState["inputValues"]>({
-    nick: "",
-    subMonth: 0,
-    avatar: "",
-    description: "",
-  });
+  // const [inputValues, setInputValues] = useState<FormState["inputValues"]>(INITIAL_STATE);
+
+  const [inputValues, dispatch] = useReducer(formReducer, INITIAL_STATE);
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault;
+    e.preventDefault();
 
     onNewSub(inputValues);
     handleClear();
@@ -27,19 +59,18 @@ export const Form = ({ onNewSub }: FormProps) => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setInputValues({
-      ...inputValues,
-      [e.target.name]: e.target.value,
+    const { name, value } = e.target;
+    dispatch({
+      type: "change_value",
+      payload: {
+        inputName: name,
+        inputValue: value,
+      },
     });
   };
 
   const handleClear = () => {
-    setInputValues({
-      nick: "",
-      subMonth: 0,
-      avatar: "",
-      description: "",
-    });
+    dispatch({ type: "clear" });
   };
 
   return (
