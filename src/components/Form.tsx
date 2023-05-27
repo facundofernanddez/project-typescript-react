@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import { Sub } from "../types";
 
 interface FormState {
@@ -34,6 +34,7 @@ const formReducer = (
 ) => {
   switch (action.type) {
     case "change_value":
+      // eslint-disable-next-line no-case-declarations
       const { inputName, inputValue } = action.payload;
       return {
         ...state,
